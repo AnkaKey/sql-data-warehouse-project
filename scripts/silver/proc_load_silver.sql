@@ -69,7 +69,7 @@ BEGIN
 			FROM bronze.crm_cust_info
 			WHERE cst_id IS NOT NULL
 		)t
-		WHERE flag_last = 1
+		WHERE flag_last = 1;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -110,7 +110,7 @@ BEGIN
 				LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt) - 1 
 				AS DATE
 			) AS prd_end_dt -- Calculate end date as one day before the next start date
-		FROM bronze.crm_prd_info
+		FROM bronze.crm_prd_info;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -155,7 +155,7 @@ BEGIN
 			CASE WHEN sls_price IS NULL OR sls_price <= 0 THEN sls_sales / NULLIF(sls_quantity,0)
 				 ELSE sls_price
 			END AS sls_price -- Derive price if original value is missing
-		FROM bronze.crm_sales_details
+		FROM bronze.crm_sales_details;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -189,7 +189,7 @@ BEGIN
 				 WHEN UPPER(TRIM(gen)) IN ('M', 'MALE') THEN 'Male'
 				 ELSE 'n/a'
 			END AS gen -- Normalize gender values and handle unknown cases
-		FROM bronze.erp_cust_az12
+		FROM bronze.erp_cust_az12;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -213,7 +213,7 @@ BEGIN
 				 WHEN TRIM(cntry) = '' OR cntry IS NULL THEN 'n/a'
 					 ELSE TRIM(cntry)
 			END AS cntry  -- Normalize and Handle missing or blank country codes
-		FROM bronze.erp_loc_a101 
+		FROM bronze.erp_loc_a101;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -237,7 +237,7 @@ BEGIN
 			cat,
 			subcat,
 			maintenance
-		FROM bronze.erp_px_cat_g1v2
+		FROM bronze.erp_px_cat_g1v2;
 		
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
