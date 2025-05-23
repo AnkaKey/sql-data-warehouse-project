@@ -49,10 +49,10 @@ BEGIN
 		PRINT CHAR(10) + '>> -------------' + CHAR(10);
 
 		SET @start_time = GETDATE();
-		PRINT '>> Truncating Table: bronze.bronze.crm_prd_info';
+		PRINT '>> Truncating Table: bronze.crm_prd_info';
 		TRUNCATE TABLE bronze.crm_prd_info;
 
-		PRINT '>> Inserting Data into: bronze.bronze.crm_prd_info';
+		PRINT '>> Inserting Data into: bronze.crm_prd_info';
 		BULK INSERT bronze.crm_prd_info
 		FROM 'C:\SQL\sql-data-warehouse-project\datasets\source_crm\prd_info.csv'
 		WITH (
