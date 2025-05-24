@@ -32,8 +32,8 @@ SELECT
 	ci.cst_marital_status    AS marital_status,
 	CASE WHEN ci.cst_gndr != 'n/a' THEN ci.cst_gndr -- CRM is the Master for gender Info
 		 ELSE COALESCE(ca.gen, 'n/a')
-	END AS gender,
-	ca.bdate AS birthdate,
+	END 			 AS gender,
+	ca.bdate 		 AS birthdate,
 	ci.cst_create_date       AS create_date
 FROM silver.crm_cust_info ci
 LEFT JOIN silver.erp_cust_az12 ca
